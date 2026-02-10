@@ -1,5 +1,5 @@
 resource "aws_security_group" "Jenkins-sg" {
-  name        = "Jenkins-Security Group"
+  name        = "security-group-1"
   description = "Open 22,443,80,8080,9000,9100,9090,3000"
 
   # Define a single ingress rule to allow traffic on all specified ports
@@ -31,11 +31,11 @@ resource "aws_security_group" "Jenkins-sg" {
 
 
 resource "aws_instance" "web" {
-  ami                    = "ami-0b6c6ebed2801a5cb"  #change your ami value according to your aws instance
+  ami                    = "ami-019715e0d74f695be"  #change your ami value according to your aws instance
   instance_type          = "t2.large"
-  key_name               = "rrr"
+  key_name               = "ANSIBLE.pem"
   vpc_security_group_ids = [aws_security_group.Jenkins-sg.id]
-  user_data              = file("${path.module}/script.sh")
+  user_data              = file("/script.sh")
 
   tags = {
     Name = "gpt clone1"
